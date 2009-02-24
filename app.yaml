@@ -12,6 +12,9 @@ handlers:
 
 - url: /widget.js
   script: json-stackoverflow.py
+
+- url: /00deadbeef
+  script: json-stackoverflow.py
   
 - url: /favicon.ico
   static_files: static/images/favicon.ico

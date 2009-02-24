@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ## json-stackoverflow.py -- JSON Cricket -*- Python -*-
-## Time-stamp: "2009-02-24 15:12:13 ghoseb"
+## Time-stamp: "2009-02-24 15:52:48 ghoseb"
 
 ## Copyright (c) 2009, oCricket.com
 
@@ -56,10 +56,20 @@ class Widget(webapp.RequestHandler):
 
         return self.response.out.write(js)
         
-        
+
+class FlushCache(webapp.RequestHandler):
+    def get(self):
+        sid = self.request.get("id")
+        val = ""
+        if sid:
+            val = memcache.delete(sid)
+        return self.response.out.write(val)
+
+
 application = webapp.WSGIApplication([('/', IndexPage),
                                       ('/reputation.json', ShowReputation),
-                                      ('/widget.js', Widget),], debug=True)
+                                      ('/widget.js', Widget),
+                                      ('/00deadbeef', FlushCache),], debug=False)
 
 def main():
   run_wsgi_app(application)
