@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ## so_rep.py -- Show the SO reputation -*- Python -*-
-## Time-stamp: "2009-02-24 14:02:18 ghoseb"
+## Time-stamp: "2009-02-24 15:42:11 ghoseb"
 
 ## Copyright (c) 2009, oCricket.com
 
@@ -82,7 +82,10 @@ def get_name(profile):
     Arguments:
     - `profile`: The profile data
     """
-    return R_NAME.search(profile).group('name')
+    try:
+        return R_NAME.search(profile).group('name')
+    except AttributeError:
+        return ""
 
 def get_gravatar(profile):
     """Get the gravatar of the user
@@ -90,7 +93,10 @@ def get_gravatar(profile):
     Arguments:
     - `profile`: The profile data
     """
-    return R_GRAVATAR.search(profile).group('gravatar_url') + '?s=48&d=identicon&r=PG'
+    try:
+        return R_GRAVATAR.search(profile).group('gravatar_url') + '?s=48&d=identicon&r=PG'
+    except AttributeError:
+        return ""
 
 def get_so_info(user_id, raw=False):
     """Get consolidated info about a SO user
