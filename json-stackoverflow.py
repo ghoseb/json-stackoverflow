@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ## json-stackoverflow.py -- JSON Cricket -*- Python -*-
-## Time-stamp: "2009-02-24 14:50:20 ghoseb"
+## Time-stamp: "2009-02-24 15:12:13 ghoseb"
 
 ## Copyright (c) 2009, oCricket.com
 
@@ -24,9 +24,10 @@ class ShowReputation(webapp.RequestHandler):
     def get(self):
         data = None
         sid = self.request.get("id")
+        raw = bool(self.request.get("raw"))
         callback = self.request.get("callback")
 
-        so_info = get_so_info(sid)
+        so_info = get_so_info(sid, raw)
 
         if not so_info:
             self.response.out.write(data)
