@@ -1,1 +1,0 @@
-eval("document.write(\'<script type=\"text\/javascript\">s={d:function(json){n=document.getElementById(\"so-widget\");n.innerHTML=json.data;}};<\/script><\/script><script type=\"text\/javascript\" src=\"http:\/\/json-stackoverflow.appspot.com\/reputation.json?id=8024&callback=s.d\"><\/script>\');\n");

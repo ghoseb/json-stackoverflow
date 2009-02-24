@@ -1,0 +1,1 @@
+eval("document.write(\'<script type=\"text\/javascript\">s={d:function(json){n=document.getElementById(\"so-widget\");n.innerHTML=json.data;}};<\/script><\/script><script type=\"text\/javascript\" src=\"\/reputation.json?id={{ id }}&callback=s.d\"><\/script>\');\n");

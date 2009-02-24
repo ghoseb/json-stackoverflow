@@ -10,13 +10,12 @@ handlers:
 - url: /reputation.json
   script: json-stackoverflow.py
 
+- url: /widget.js
+  script: json-stackoverflow.py
+  
 - url: /favicon.ico
   static_files: static/images/favicon.ico
   upload: static/images/favicon.ico
-
-- url: /widget.js
-  static_files: static/js/widget.js
-  upload: static/js/widget.js
 
 - url: /.*
   script: not_found.py
