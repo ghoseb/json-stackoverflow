@@ -1,0 +1,61 @@
+<style type="text/css" media="screen">
+  div#so {
+  font-size: 12px;
+  width: 185px;
+  height: 48px;
+  line-height: 1.3em !important;
+  display: block;
+  border: 1px solid black;
+  background-color: #fbfbfb;
+  }
+  div#so-img {
+  float: left;
+  width: 48px;
+  display: block;
+  }
+  div#so-numbers {
+  float: right;
+  width: 135px;
+  display: block;
+  text-align: right;
+  padding-right: 2px;
+  }
+  span.gold, span.silver, span.bronze {
+  vertical-align: baseline;
+  padding: 0px;
+  font-size: 120%;
+  }
+  span.gold {
+  color: #FFCC00;
+  }
+  span.silver {
+  color: #C0C0C0;
+  }
+  span.bronze {
+  color: #CC9966;      
+  }
+  span#so-rep {
+  font-weight: bold;
+  }
+  div#so a {
+  text-decoration: none;
+  }
+</style>
+<div id="so">
+  <div id="so-img">
+    <img title="{{ name }}" src="{{ gravatar }}" />
+  </div>
+  <div id="so-numbers">
+    <a href="http://stackoverflow.com/users/{{ user_id }}/" title="{{ name }}">{{ name }}</a><br />
+    <span id="so-rep" title="{{ reputation }} Reputation">{{ reputation }}</span><br />
+    {% if gold %}
+    <span class="badge" title="{{ gold }} Gold badge{{ gold|pluralize }}">{{ gold }}</span><span class="gold">&bull;</span>
+    {% endif %}
+    {% if silver %}
+    <span class="badge" title="{{ silver }} Silver badge{{ silver|pluralize }}">{{ silver }}</span><span class="silver">&bull;</span>
+    {% endif %}
+    {% if bronze %}
+    <span class="badge" title="{{ bronze }} Bronze badge{{ bronze|pluralize }}">{{ bronze }}</span><span class="bronze">&bull;</span>
+    {% endif %}
+  </div>
+</div>

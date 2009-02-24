@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 ## so_rep.py -- Show the SO reputation -*- Python -*-
-## Time-stamp: "2009-02-23 20:09:04 ghoseb"
+## Time-stamp: "2009-02-24 14:02:18 ghoseb"
 
 ## Copyright (c) 2009, oCricket.com
 
+import os
 import re
 import urllib
 from django.utils import simplejson
 
 from google.appengine.api import memcache
+from google.appengine.ext.webapp import template
 
 R_BADGES = re.compile("<a [^>]+ class=\"badge\"><span class=\"(.*?)\">.*?</span>.*?</a>(.*?)<br/>", re.IGNORECASE)
 R_MULTIPLIERS = re.compile("<span class=\"item-multiplier\">&times;&nbsp;(?P<multiplier>.*?)</span>", re.IGNORECASE)
@@ -90,22 +92,30 @@ def get_gravatar(profile):
     """
     return R_GRAVATAR.search(profile).group('gravatar_url') + '?s=48&d=identicon&r=PG'
 
-def get_so_info(user_id, json=True):
+def get_so_info(user_id, raw=False):
     """Get consolidated info about a SO user
     
     Arguments:
     - `user_id`: The user id
     """
     profile = get_profile(user_id)
-    if json:
-        return simplejson.dumps({'name': get_name(profile),
+    template_path = os.path.join(os.path.dirname(__file__), 'reputation.html')
+
+    if raw:
+        return simplejson.dumps({'user_id': user_id,
+                                 'name': get_name(profile),
                                  'gravatar': get_gravatar(profile),
                                  'reputation': get_reputation(profile),
                                  'badges': get_badges(profile)})
-    return {'name': get_name(profile),
-            'gravatar': get_gravatar(profile),
-            'reputation': get_reputation(profile),
-            'badges': get_badges(profile)}
+    badges = get_badges(profile)
+    template_values = {'user_id': user_id,
+                       'name': get_name(profile),
+                       'gravatar': get_gravatar(profile),
+                       'reputation': get_reputation(profile),
+                       'gold': badges.get('gold', None),
+                       'silver': badges.get('silver', None),
+                       'bronze': badges.get('bronze', None)}
+    return simplejson.dumps({'data': template.render(template_path, template_values)})
 
 if __name__ == '__main__':
-    print get_so_info('8024')
+    print get_so_info('8024', True)
