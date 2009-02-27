@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ## json-stackoverflow.py -- JSON Cricket -*- Python -*-
-## Time-stamp: "2009-02-24 15:52:48 ghoseb"
+## Time-stamp: "2009-02-27 14:32:44 ghoseb"
 
 ## Copyright (c) 2009, oCricket.com
 
@@ -22,6 +22,7 @@ class IndexPage(webapp.RequestHandler):
 
 class ShowReputation(webapp.RequestHandler):
     def get(self):
+        self.response.headers["Content-Type"] = "application/json"
         data = None
         sid = self.request.get("id")
         raw = bool(self.request.get("raw"))
