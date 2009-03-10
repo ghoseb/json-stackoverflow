@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ## so_rep.py -- Show the SO reputation -*- Python -*-
-## Time-stamp: "2009-02-24 15:42:11 ghoseb"
+## Time-stamp: "2009-03-10 14:19:26 ghoseb"
 
 ## Copyright (c) 2009, oCricket.com
 
@@ -9,14 +9,14 @@ import re
 import urllib
 from django.utils import simplejson
 
-from google.appengine.api import memcache
-from google.appengine.ext.webapp import template
+# from google.appengine.api import memcache
+# from google.appengine.ext.webapp import template
 
-R_BADGES = re.compile("<a [^>]+ class=\"badge\"><span class=\"(.*?)\">.*?</span>.*?</a>(.*?)<br/>", re.IGNORECASE)
+R_BADGES = re.compile("<a [^>]+ class=\"badge\"><span class=\"(.*?)\">.*?</span>.*?</a>(.*?)<br>", re.IGNORECASE)
 R_MULTIPLIERS = re.compile("<span class=\"item-multiplier\">&times;&nbsp;(?P<multiplier>.*?)</span>", re.IGNORECASE)
 R_REPUTATION = re.compile("<div class=\"summarycount\">[\D]+(?P<reputation>.*?)</div>", re.IGNORECASE)
 R_NAME = re.compile("<div id=\"subheader\">\r\n[^<]+<h1>(?P<name>.*?)</h1>", re.IGNORECASE)
-R_GRAVATAR = re.compile("<img src=\"(?P<gravatar_url>.*?)\?.*\" height=128 width=128 />", re.IGNORECASE)
+R_GRAVATAR = re.compile("<img src=\"(?P<gravatar_url>.*?)\?[^\"]+\" height=\"128\" width=\"128\"[^>]*>", re.IGNORECASE)
 
 SO_URL = "http://stackoverflow.com/users/%s/"
 
@@ -26,10 +26,11 @@ def get_profile(user_id):
     Arguments:
     - `user_id`: The SO User ID
     """
-    data = memcache.get(user_id)
-    if data is None:
-        data = urllib.urlopen(SO_URL % user_id).read()
-        memcache.set(user_id, data, 3600)
+    # data = memcache.get(user_id)
+    # if data is None:
+    #     data = urllib.urlopen(SO_URL % user_id).read()
+    #     memcache.set(user_id, data, 3600)
+    data = urllib.urlopen(SO_URL % user_id).read()
     return data
 
 def sanitize_badges(badges):
