@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ## json-stackoverflow.py -- JSON Cricket -*- Python -*-
-## Time-stamp: "2009-02-27 14:32:44 ghoseb"
+## Time-stamp: "2009-03-10 14:27:26 ghoseb"
 
 ## Copyright (c) 2009, oCricket.com
 
@@ -56,7 +56,7 @@ class Widget(webapp.RequestHandler):
             memcache.set(sid + ".js", js, 10 * 24 * 60 * 60) # 10 days
 
         return self.response.out.write(js)
-        
+
 
 class FlushCache(webapp.RequestHandler):
     def get(self):
